@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    {{{body}}}
+
+    <script src="javascripts/shake.js"></script>
+    <script type="text/javascript">
+      var shakeLog = document.getElementById('shake-log');
+
+      var myShakeEvent = new Shake({
+        threshold: 1, // optional shake strength threshold
+        timeout: 1000 // optional, determines the frequency of event generation
+      });
+
+      myShakeEvent.start();
+
+      window.addEventListener('shake', shakeEventDidOccur, false);
+
+      //function to call when shake occurs
+      function shakeEventDidOccur () {
+        var time = new Date();
+        var shakeEvent = document.createElement('li');
+        shakeEvent.appendChild(document.createTextNode(getFormattedDate() + ': Shake detected'));
+        shakeLog.appendChild(shakeEvent);
+      } 
+
+      function getFormattedDate(){
+        var d = new Date();
+
+        d = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+
+        return d;
+      }
+  </script>
+
+  </body>
+</html>
